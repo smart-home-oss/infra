@@ -20,6 +20,8 @@ services:
       - "8080:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - infra
 
   mysql:
     image: mysql:8.0.19
@@ -34,6 +36,10 @@ services:
       MYSQL_PASSWORD: password
     ports:
       - 8306:3306
+    networks:
+      infra:
+        aliases:
+          - mysql
 
   keycloak:
     image: quay.io/keycloak/keycloak:8.0.2
@@ -53,8 +59,16 @@ services:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: password
       # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the MySQL JDBC driver documentation in order to use it.
-      #JDBC_PARAMS: "connectTimeout=30000"
+      JDBC_PARAMS: "connectTimeout=30000&useSSL=false"
     ports:
       - 8887:8080
     depends_on:
       - mysql
+    networks:
+      infra:
+        aliases:
+          - keycloak
+
+networks:
+  smarthomeoss:
+  infra:
