@@ -28,7 +28,6 @@ services:
   mysql:
     image: mysql:8.0.19
     container_name: mysql-um-shoss
-    #    image: mysql:5.7
     volumes:
       - ~/.smart-home/mysql_data:/var/lib/mysql
     environment:
@@ -42,9 +41,8 @@ services:
       - infra
       - smarthomeoss
 
-
   keycloak:
-    image: quay.io/keycloak/keycloak:latest
+    image: quay.io/keycloak/keycloak:9.0.0
     container_name: keycloak-um-shoss
     volumes:
       - ~/.smart-home/keycloak_tmp:/tmp
@@ -59,9 +57,9 @@ services:
       DB_USER: keycloak
       DB_PASSWORD: password
       KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: Pa55w0rd
+      KEYCLOAK_PASSWORD: password
       # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the MySQL JDBC driver documentation in order to use it.
-      #JDBC_PARAMS: "connectTimeout=30000"
+#      JDBC_PARAMS: "connectTimeout=30000&useSSL=false"
     ports:
       - 8887:8080
     networks:
