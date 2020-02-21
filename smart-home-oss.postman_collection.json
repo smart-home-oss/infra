@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "0c78fdc1-b128-44dc-8b9c-5e8d0a42bd87",
+		"name": "smart-home-oss",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "keycloak",
+			"item": [
+				{
+					"name": "create token via keycloak - jwt",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "user-manager",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "b1845a69-5b61-4bfc-95d2-2dfff8ccea4d",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "rodislav",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://keycloak.localhost/auth/realms/smart-home-oss/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"keycloak",
+								"localhost"
+							],
+							"path": [
+								"auth",
+								"realms",
+								"smart-home-oss",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
