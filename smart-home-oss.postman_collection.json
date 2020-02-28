@@ -12,14 +12,7 @@
 					"name": "house manager : get me via bearer token",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJqei1aWFBPUkdkTXFkdWNTSWtFSEluVU5jSENpS21GZlRLZWYydkczaXJJIn0.eyJqdGkiOiIwOTgyZWY5Ny1hM2JjLTRiODktYjYxZC0xMmZmOWNjODExNTAiLCJleHAiOjE1ODI2NzYzNDAsIm5iZiI6MCwiaWF0IjoxNTgyMjQ0MzQwLCJpc3MiOiJodHRwOi8va2V5Y2xvYWsubG9jYWxob3N0L2F1dGgvcmVhbG1zL3NtYXJ0LWhvbWUtb3NzIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjJkZWIxZTMwLWI5MTUtNDBmOS04MzU0LTVhZjdhOWRiODM1NCIsInR5cCI6IkJlYXJlciIsImF6cCI6InVzZXItbWFuYWdlciIsImF1dGhfdGltZSI6MCwic2Vzc2lvbl9zdGF0ZSI6ImMxMWM2NzhmLWYxNDEtNGQ4NS1hMGFiLTdjYzAwOTVmNTkxNCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoicm9kaSBtb2xkIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicm9kaXNsYXYiLCJnaXZlbl9uYW1lIjoicm9kaSIsImZhbWlseV9uYW1lIjoibW9sZCIsImVtYWlsIjoicm9kaXNsYXZAZ21haWwuY29tIn0.RyycxjQuoaP9099MsAaaYYNHNzP41_GGFzliX5P-oyDVILNBe6gNsv_v9zgYJU80Yhmt78BZQXdiEDOzDfzMx8E22aapyrq_X0CCFKg1X1cVp4KTAnAaWCEuDOydnpyx4KgUidjz-SOAdVw43JNX44692LiPDZeROO3Ivof-fdCjsnturhyyAuwypyT29nxmgf__iynLPf-ZdZCIC5LGLYoL7s61-ZNrjfli32zhfB6dJ_YGvksbrmKE6xIrJ0KRFKQijcHjT6-HO1CBWHC_NCJ_QxfAkQiSxX04TN6bOiCZFL0g6FabuMclRptAiYjQiBTb-jM1WrlivZ1fPHXpdQ",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [
@@ -31,15 +24,16 @@
 							}
 						],
 						"url": {
-							"raw": "http://rodislav.com:7000/me",
+							"raw": "http://localhost:7000/api/v1/houses",
 							"protocol": "http",
 							"host": [
-								"rodislav",
-								"com"
+								"localhost"
 							],
 							"port": "7000",
 							"path": [
-								"me"
+								"api",
+								"v1",
+								"houses"
 							]
 						}
 					},
@@ -55,11 +49,16 @@
 					"name": "user manager : get bearer token via basic auth",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
+							"type": "basic",
+							"basic": [
 								{
-									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJqei1aWFBPUkdkTXFkdWNTSWtFSEluVU5jSENpS21GZlRLZWYydkczaXJJIn0.eyJqdGkiOiIwOTgyZWY5Ny1hM2JjLTRiODktYjYxZC0xMmZmOWNjODExNTAiLCJleHAiOjE1ODI2NzYzNDAsIm5iZiI6MCwiaWF0IjoxNTgyMjQ0MzQwLCJpc3MiOiJodHRwOi8va2V5Y2xvYWsubG9jYWxob3N0L2F1dGgvcmVhbG1zL3NtYXJ0LWhvbWUtb3NzIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjJkZWIxZTMwLWI5MTUtNDBmOS04MzU0LTVhZjdhOWRiODM1NCIsInR5cCI6IkJlYXJlciIsImF6cCI6InVzZXItbWFuYWdlciIsImF1dGhfdGltZSI6MCwic2Vzc2lvbl9zdGF0ZSI6ImMxMWM2NzhmLWYxNDEtNGQ4NS1hMGFiLTdjYzAwOTVmNTkxNCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoicm9kaSBtb2xkIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicm9kaXNsYXYiLCJnaXZlbl9uYW1lIjoicm9kaSIsImZhbWlseV9uYW1lIjoibW9sZCIsImVtYWlsIjoicm9kaXNsYXZAZ21haWwuY29tIn0.RyycxjQuoaP9099MsAaaYYNHNzP41_GGFzliX5P-oyDVILNBe6gNsv_v9zgYJU80Yhmt78BZQXdiEDOzDfzMx8E22aapyrq_X0CCFKg1X1cVp4KTAnAaWCEuDOydnpyx4KgUidjz-SOAdVw43JNX44692LiPDZeROO3Ivof-fdCjsnturhyyAuwypyT29nxmgf__iynLPf-ZdZCIC5LGLYoL7s61-ZNrjfli32zhfB6dJ_YGvksbrmKE6xIrJ0KRFKQijcHjT6-HO1CBWHC_NCJ_QxfAkQiSxX04TN6bOiCZFL0g6FabuMclRptAiYjQiBTb-jM1WrlivZ1fPHXpdQ",
+									"key": "username",
+									"value": "rodislav",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "password",
 									"type": "string"
 								}
 							]
@@ -74,15 +73,14 @@
 							}
 						],
 						"url": {
-							"raw": "http://rodislav.com:7000/me",
+							"raw": "http://localhost:7001/authenticate",
 							"protocol": "http",
 							"host": [
-								"rodislav",
-								"com"
+								"localhost"
 							],
-							"port": "7000",
+							"port": "7001",
 							"path": [
-								"me"
+								"authenticate"
 							]
 						}
 					},
