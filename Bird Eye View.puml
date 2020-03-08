@@ -1,0 +1,34 @@
+@startuml
+component internet as "Internet based services"  #b6e0f6
+
+component messaging as "Messaging service\nKafka" #b6e0f6
+component discovery as "Service discovery\nConsul" #b6e0f6
+component sensors as "Sensor service"
+component user as "User manager"
+component house as "House manager"
+component auth as "Authentication service\nKeycloak" #b6e0f6
+component extSenors as "External sensors"
+component home as "Home connected devices" #Yellow
+component stats as "Statistics\nPrometheus" #b6e0f6
+component statsView as "Statistics dashboard\nGrafana" #b6e0f6
+component tracing as "Tracing\nOpenZipkin" #b6e0f6
+
+internet <-- extSenors : download\nsensor data
+internet ..> extSenors
+
+messaging -up-> discovery : register
+extSenors --> discovery : register
+sensors --> discovery : register
+user --> discovery : register
+house --> discovery : register
+auth --> discovery : register
+stats -up-> discovery : register
+statsView -up-> discovery : register
+tracing -left-> discovery : register
+
+extSenors --> messaging : push\nsensor data
+sensors <.. messaging  : read\nsensor data
+
+home -down-> sensors : push\nsensor data
+
+@enduml
