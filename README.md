@@ -2,7 +2,48 @@
 
 ## F.A.Q.
 
-In case of
+##### If you want to move docker files away from / (_root_) to free up some space
+
+Source : https://www.guguweb.com/2019/02/07/how-to-move-docker-data-directory-to-another-location-on-ubuntu/
+
+Stop the docker daemon
+```shell script
+sudo service docker stop
+```
+Using your preferred text editor add a file named `daemon.json` under the directory `/etc/docker`. The file should have this content:
+```json
+{ 
+   "graph": "/path/to/your/docker" 
+}
+```
+Copy the current data directory to the new one
+```shell script
+sudo rsync -aP /var/lib/docker/ /path/to/your/docker
+```
+Rename the old docker directory
+```shell script
+sudo mv /var/lib/docker /var/lib/docker.old
+```
+Start the daemon back
+```shell script
+sudo service docker start
+```
+Test that containers are there
+```shell script
+docker ps -a
+```
+And old docker folder is not back
+```shell script
+ls /var/lib/docker
+```
+Then remove the omld files
+```shell script
+sudo rm -rf /var/lib/docker.old
+```
+
+
+
+##### In case of error while running __Elasticsearch__ 
 ```shell script
 ERROR: [1] bootstrap checks failed
 [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
