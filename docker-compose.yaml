@@ -7,8 +7,8 @@ volumes:
 services:
 
   traefik:
-    image: "traefik:v2.1"
-    container_name: "traefik-um-shoss"
+    image: traefik:v2.1
+    container_name: traefik-um-shoss
     command:
       #- "--log.level=DEBUG"
       - "--api.insecure=true"
@@ -16,10 +16,10 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
     ports:
-      - "80:80"
-      - "8080:8080"
+      - 80:80
+      - 8080:8080
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - infra
       - smarthomeoss
@@ -47,9 +47,9 @@ services:
     volumes:
       - ~/.smart-home/keycloak_tmp:/tmp
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.keycloak.rule=Host(`keycloak.localhost`)"
-      - "traefik.http.routers.keycloak.entrypoints=web"
+      traefik.enable: true
+      traefik.http.routers.keycloak.rule: Host(`keycloak.localhost`)
+      traefik.http.routers.keycloak.entrypoints: web
     environment:
       DB_VENDOR: MYSQL
       DB_ADDR: mysql
@@ -67,6 +67,46 @@ services:
       - smarthomeoss
     depends_on:
       - mysql
+
+# https://github.com/consul/consul/blob/master/docker-compose.yml
+
+    # service configuration for our dockerized Rails app
+  consul:
+    container_name: consul-um-shoss
+    image: consul:1.7.1
+    depends_on:
+      - mysql
+    ports:
+      - 8301:8301
+      - 8302:8302
+      - 8600:8600
+      - 8500:8500
+      # gui port
+    networks:
+      - infra
+      - smarthomeoss
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:5.4.1
+    container_name: zookeeper-um-shoss
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+      - infra
+      - smarthomeoss
+
+  kafka:
+    image: confluentinc/cp-kafka:5.4.1
+    container_name: kafka-um-shoss
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - infra
+      - smarthomeoss
+    ports:
+      - 10049:9092
 
 networks:
   smarthomeoss:
