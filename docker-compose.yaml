@@ -3,6 +3,14 @@ version: '3'
 volumes:
   mysql_data:
     driver: local
+  elastic_data_01:
+    driver: local
+
+networks:
+  smarthomeoss:
+    external: true
+  infra:
+    internal: true
 
 services:
 
@@ -23,7 +31,6 @@ services:
     networks:
       - infra
       - smarthomeoss
-
 
   mysql:
     image: mysql:8.0.19
@@ -108,8 +115,43 @@ services:
     ports:
       - 10049:9092
 
-networks:
-  smarthomeoss:
-    external: true
-  infra:
-    internal: true
+  # For simplicity, running only a single node here
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.1
+    container_name: elasticsearch-um-shoss
+    environment:
+      - node.name=es01
+      - cluster.name=es-shoss-cluster
+      - cluster.initial_master_nodes=es01
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elastic_data_01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - infra
+      - smarthomeoss
+
+  kibana:
+    container_name: kibana-um-shoss
+    image: docker.elastic.co/kibana/kibana:7.6.1
+    environment:
+      - "ELASTICSEARCH_PASSWORD=password"
+      - server.port=127.0.0.1:5601
+      - elasticsearch.url="http://elasticsearch:9200"
+      - server.name="kibana"
+    ports:
+      - 5601:5601
+    healthcheck:
+      test: ["CMD", "curl", "-s", "-f", "http://localhost:5601/login"]
+      retries: 6
+    networks:
+      - infra
+      - smarthomeoss
+    depends_on:
+      - elasticsearch
