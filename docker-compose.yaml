@@ -115,6 +115,7 @@ services:
     ports:
       - 10049:9092
 
+  # https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
   # For simplicity, running only a single node here
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.6.1
