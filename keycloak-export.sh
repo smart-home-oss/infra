@@ -2,7 +2,7 @@
 
 # so far, this script is failing due to permission denied error /tmp/Master.json
 
-KEYCLOACK_CONTAINER_NAME=keycloak-um-shoss
+KEYCLOACK_CONTAINER_NAME=keycloak-shoss
 REAL_NAME=Master
 
 docker exec -it ${KEYCLOACK_CONTAINER_NAME} /opt/jboss/keycloak/bin/standalone.sh \

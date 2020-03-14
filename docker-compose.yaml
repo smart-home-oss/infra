@@ -16,7 +16,7 @@ services:
 
   traefik:
     image: traefik:v2.1
-    container_name: traefik-um-shoss
+    container_name: traefik-shoss
     command:
       #- "--log.level=DEBUG"
       - "--api.insecure=true"
@@ -34,7 +34,7 @@ services:
 
   mysql:
     image: mysql:8.0.19
-    container_name: mysql-um-shoss
+    container_name: mysql-shoss
     volumes:
       - ~/.smart-home/mysql_data:/var/lib/mysql
     environment:
@@ -50,7 +50,7 @@ services:
 
   keycloak:
     image: quay.io/keycloak/keycloak:9.0.0
-    container_name: keycloak-um-shoss
+    container_name: keycloak-shoss
     volumes:
       - ~/.smart-home/keycloak_tmp:/tmp
     labels:
@@ -79,7 +79,7 @@ services:
 
     # service configuration for our dockerized Rails app
   consul:
-    container_name: consul-um-shoss
+    container_name: consul-shoss
     image: consul:1.7.1
     depends_on:
       - mysql
@@ -95,7 +95,7 @@ services:
 
   zookeeper:
     image: confluentinc/cp-zookeeper:5.4.1
-    container_name: zookeeper-um-shoss
+    container_name: zookeeper-shoss
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
     networks:
@@ -104,7 +104,7 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:5.4.1
-    container_name: kafka-um-shoss
+    container_name: kafka-shoss
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
@@ -118,7 +118,7 @@ services:
   # For simplicity, running only a single node here
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.6.1
-    container_name: elasticsearch-um-shoss
+    container_name: elasticsearch-shoss
     environment:
       - node.name=es01
       - cluster.name=es-shoss-cluster
@@ -138,7 +138,7 @@ services:
       - smarthomeoss
 
   kibana:
-    container_name: kibana-um-shoss
+    container_name: kibana-shoss
     image: docker.elastic.co/kibana/kibana:7.6.1
     environment:
       - "ELASTICSEARCH_PASSWORD=password"
