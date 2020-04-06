@@ -118,7 +118,7 @@ services:
   # https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
   # For simplicity, running only a single node here
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
     container_name: elasticsearch-shoss
     environment:
       - node.name=es01
@@ -140,7 +140,7 @@ services:
 
   kibana:
     container_name: kibana-shoss
-    image: docker.elastic.co/kibana/kibana:7.6.1
+    image: docker.elastic.co/kibana/kibana:7.6.2
     environment:
       - "ELASTICSEARCH_PASSWORD=password"
       - server.port=127.0.0.1:5601

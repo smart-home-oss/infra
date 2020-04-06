@@ -1,0 +1,9 @@
+@startuml
+
+SomeClass -> "java.util.Logger": log info message
+"java.util.Logger" --> "SL4J": do the logging
+"SL4J" --> "Logback": do the logging
+"Logback" --> "shoss-appender" : do the actual work
+"shoss-appender" --> "Elasticsearch" : send the logs
+
+@enduml
