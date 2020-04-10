@@ -80,9 +80,7 @@ services:
     # service configuration for our dockerized Rails app
   consul:
     container_name: consul-shoss
-    image: consul:1.7.1
-    depends_on:
-      - mysql
+    image: consul:1.7.2
     ports:
       - 8301:8301
       - 8302:8302
