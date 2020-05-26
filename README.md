@@ -41,7 +41,18 @@ Then remove the omld files
 sudo rm -rf /var/lib/docker.old
 ```
 
+##### inotify
 
+[Inotify Watches Limit](https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit)
+
+1. 1. Add the following line to either `/etc/sysctl.conf` file or a new `*.conf` file (_e.g. idea.conf_) under `/etc/sysctl.d/` directory:
+```shell script
+fs.inotify.max_user_watches = 524288
+```
+1. Then run this command to apply the change:
+```shell script
+sudo sysctl -p --system
+```
 
 ##### In case of error while running __Elasticsearch__ 
 ```shell script
